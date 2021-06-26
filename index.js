@@ -43,15 +43,16 @@ client.connect(err => {
     app.get('/blogCollectionShow', (req, res) => {
         BlogsCollection.find({}).toArray((err, documents) => {
             console.log(err)
-            // console.log(documents)
+            console.log(documents)
             res.send(documents);
         })
     });
-
-
-     
-     
-
+    app.get('/find_single_blog/:id', (req, res) => {
+        BlogsCollection.find({ _id: ObjectID(req.params.id) })
+          .toArray((err, products) => {
+            res.send(products[0])
+          })
+      })
 });
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
