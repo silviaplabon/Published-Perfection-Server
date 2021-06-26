@@ -50,7 +50,18 @@ client.connect(err => {
     app.get('/find_single_blog/:id', (req, res) => {
         BlogsCollection.find({ _id: ObjectID(req.params.id) })
           .toArray((err, products) => {
-            res.send(products[0])
+              console.log(products)
+            res.send(products)
+
+          })
+      })
+
+
+      app.delete('/deleteSingleBlog/:id', (req, res) => {
+        BlogsCollection.deleteOne({ _id: ObjectID(req.params.id) })
+          .then(result => {
+            console.log(result)
+            res.send(result.deletedCount > 0)
           })
       })
 });
